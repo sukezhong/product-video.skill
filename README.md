@@ -1,4 +1,4 @@
-# 产品视频.skill
+# 产品视频制作.skill
 
 > 装到 Claude Code，一句话生成产品宣传视频。不需要 Premiere / After Effects。
 
@@ -7,7 +7,7 @@
 [![Remotion](https://img.shields.io/badge/Remotion-4.0+-purple.svg)](https://www.remotion.dev/)
 [![ffmpeg](https://img.shields.io/badge/ffmpeg-required-green.svg)](https://ffmpeg.org/)
 
-产品视频.skill 是一个 **Claude Code 产品宣传视频制作 skill**。
+产品视频制作.skill 是一个 **Claude Code 产品宣传视频制作 skill**。
 
 它会从内容策划、配音制作、帧级音画同步、动画编排到最终渲染，
 帮你用纯代码做出一条 45-65 秒的产品宣传视频（9:16 竖版 / 16:9 横版），
@@ -57,7 +57,7 @@
 
 ```bash
 # 克隆到 Claude Code skills 目录
-git clone https://github.com/sukezhong/产品视频.skill.git ~/.claude/skills/product-video-maker
+git clone https://github.com/sukezhong/product-video.skill.git ~/.claude/skills/product-video-maker
 ```
 
 然后在 Claude Code 中调用：
