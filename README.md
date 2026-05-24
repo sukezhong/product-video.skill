@@ -1,40 +1,51 @@
-# 产品视频制作.skill
+<p align="center">
+  <h1 align="center">🎬 产品视频制作.skill</h1>
+</p>
 
-> 装到 Claude Code，一句话生成产品宣传视频。不需要 Premiere / After Effects。
+<p align="center">
+  「装到 Claude Code，一句话做出产品宣传视频。」
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blue.svg)](https://claude.ai)
-[![Remotion](https://img.shields.io/badge/Remotion-4.0+-purple.svg)](https://www.remotion.dev/)
-[![ffmpeg](https://img.shields.io/badge/ffmpeg-required-green.svg)](https://ffmpeg.org/)
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+  <a href="https://claude.ai"><img src="https://img.shields.io/badge/Claude_Code-Skill-blue.svg" /></a>
+  <a href="https://www.remotion.dev/"><img src="https://img.shields.io/badge/Remotion-4.0+-purple.svg" /></a>
+  <a href="https://ffmpeg.org/"><img src="https://img.shields.io/badge/ffmpeg-required-green.svg" /></a>
+</p>
 
-产品视频制作.skill 是一个 **Claude Code 产品宣传视频制作 skill**。
+<br/>
 
-它会从内容策划、配音制作、帧级音画同步、动画编排到最终渲染，
-帮你用纯代码做出一条 45-65 秒的产品宣传视频（9:16 竖版 / 16:9 横版），
-输出 MP4 文件，直接可发。
+<p align="center">
+Premiere 太重，剪映太浅，外包太贵。<br/>
+产品视频制作.skill 用纯代码帮你做宣传视频。
+</p>
 
+<p align="center">
+告诉它你的产品是什么，<br/>
+它会走完 <strong>策划 → 配音 → 时间轴 → 动画 → 渲染</strong> 全流程，<br/>
+输出一条 45-65 秒的 MP4，竖版横版都行，直接发。
+</p>
+
+<p align="center">
+核心方法论：<strong>音频驱动一切</strong>。<br/>
+每个动画的出现时间，都是用 ffmpeg 从配音语音边界数学推导的——<br/>
+不是估的。
+</p>
+
+<p align="center">
+从一个真实产品视频的 <strong>13 轮迭代</strong>中提炼。<br/>
+每一条规则，都是因为踩过那个坑才写上去的。
+</p>
+
+<br/>
+
+<p align="center">
 装好后直接说：
+</p>
 
 ```
 帮我做一条产品宣传视频
 ```
-
-它会引导你走完整个流程：
-内容策划 → 配音 → 时间轴 → 代码 → 渲染 → 迭代。
-
----
-
-## 核心方法论：音频驱动一切
-
-从 13 轮真实迭代（V1 → V13）中提炼的第一原则：
-
-**视频节奏由音频决定，不是由视觉决定。**
-
-```
-配音录制 → ffmpeg 语音边界分析 → 计算帧时间 → 场景时长 → 动画 delay → SFX 对齐 → BGM ducking
-```
-
-每一个动画 delay 都是从语音边界数学推导的 —— 不是估的。
 
 ---
 
