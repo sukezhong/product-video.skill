@@ -1,99 +1,135 @@
 # Product Video Maker
 
-A Claude Code skill for producing product promo videos entirely from the command line — using [Remotion](https://www.remotion.dev/) (React-based video) + ffmpeg.
+> 装到 Claude Code，一句话生成产品宣传视频。不需要 Premiere / After Effects。
 
-No After Effects / Premiere needed. Describe your product, and Claude handles content planning, audio-visual sync, animation, and rendering.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blue.svg)](https://claude.ai)
+[![Remotion](https://img.shields.io/badge/Remotion-4.0+-purple.svg)](https://www.remotion.dev/)
+[![ffmpeg](https://img.shields.io/badge/ffmpeg-required-green.svg)](https://ffmpeg.org/)
 
-## What It Does
+Product Video Maker 是一个 **Claude Code 产品宣传视频制作 skill**。
 
-Turn a product idea into a polished 45-65s promo video (9:16 vertical / 16:9 horizontal) through a 5-phase workflow:
+它会从内容策划、配音制作、帧级音画同步、动画编排到最终渲染，
+帮你用纯代码做出一条 45-65 秒的产品宣传视频（9:16 竖版 / 16:9 横版），
+输出 MP4 文件，直接可发。
 
-1. **Content Planning** — scene outline, voiceover script, design style
-2. **Audio Production** — TTS/recorded VO, ffmpeg silence detection for precise speech boundaries
-3. **Timeline Engineering** — frame-level VO/scene/SFX alignment (no guesswork)
-4. **Code Implementation** — Remotion React components with Apple-style animations
-5. **Render & Iterate** — single-variable iteration until final MP4
-
-## Core Methodology: Audio Drives Everything
-
-The key insight from 13 rounds of iteration: **video timing is derived from audio, not the other way around**.
+装好后直接说：
 
 ```
-VO recording → ffmpeg silence detection → frame calculation → scene duration → animation delay → SFX alignment → BGM ducking
+帮我做一条产品宣传视频
 ```
 
-Every animation delay is mathematically derived from speech boundaries — not estimated.
+它会引导你走完整个流程：
+内容策划 → 配音 → 时间轴 → 代码 → 渲染 → 迭代。
 
-## What's Inside
+---
 
-| Topic | Coverage |
-|-------|----------|
-| Audio-visual sync | ffmpeg silence detection → frame-accurate animation delays |
-| Scene pacing | VO-driven vs. pure-visual scenes, overlap transitions, CTA hold time |
-| Volume architecture | 3-layer audio (BGM ducking + VO + SFX), volume > 1.0 amplification |
-| Animation patterns | Apple-style fade-in, callout cards, scene envelopes |
-| Phone mockup | Scale/readability balance, subtitle clearance |
-| Iteration workflow | Single-variable changes, sync checklists, feedback-to-fix mapping |
-| Anti-patterns | 7 common mistakes and their fixes |
-| Cover production | Social media cover images (rembg cutout, Playwright rendering) |
+## 核心方法论：音频驱动一切
 
-## Install
+从 13 轮真实迭代（V1 → V13）中提炼的第一原则：
 
-### As a Claude Code Skill
+**视频节奏由音频决定，不是由视觉决定。**
+
+```
+配音录制 → ffmpeg 语音边界分析 → 计算帧时间 → 场景时长 → 动画 delay → SFX 对齐 → BGM ducking
+```
+
+每一个动画 delay 都是从语音边界数学推导的 —— 不是估的。
+
+---
+
+## 覆盖内容
+
+| 主题 | 内容 |
+|------|------|
+| 音画同步 | ffmpeg silencedetect → 帧精度动画 delay |
+| 场景节奏 | 有 VO / 纯视觉两类节奏，场景重叠过渡，CTA hold |
+| 音量架构 | 三层音频（BGM ducking + VO + SFX），支持 volume > 1.0 |
+| 动画模式 | Apple 风格淡入、CalloutCard 浮动卡片、场景包络线 |
+| 手机 Mockup | scale 与可读性平衡、字幕避让 |
+| 迭代工作流 | 单变量迭代、变更同步清单、反馈→修复映射表 |
+| 反模式速查 | 7 个常见坑和正确做法 |
+| 封面制作 | 社媒封面（rembg 抠图 + Playwright 渲染） |
+
+---
+
+## 安装
 
 ```bash
-# Copy to your Claude skills directory
-cp -r . ~/.claude/skills/product-video-maker/
+# 克隆到 Claude Code skills 目录
+git clone https://github.com/sukezhong/product-video-maker.git ~/.claude/skills/product-video-maker
 ```
 
-Then invoke in Claude Code:
+然后在 Claude Code 中调用：
 
 ```
 /product-video-maker
 ```
 
-### Prerequisites
+### 前置依赖
 
 - [Node.js](https://nodejs.org/) 18+
 - [Remotion](https://www.remotion.dev/) (`npm create video@latest`)
-- [ffmpeg](https://ffmpeg.org/) (for audio analysis)
-- TTS service (Fish Audio / ElevenLabs) or recorded voiceover
+- [ffmpeg](https://ffmpeg.org/)（音频分析）
+- TTS 服务（Fish Audio / ElevenLabs）或真人录音
 
-## Quick Example
+---
+
+## 工作流总览
+
+```
+Phase 1  内容策划        定义视频参数、场景大纲、配音文案、设计风格
+                         ↓
+Phase 2  音频制作        生成 VO → ffmpeg 分析语音边界 → 确定 playbackRate
+                         ↓
+Phase 3  时间轴规划      排 VO/场景/SFX 帧级时间轴（纸上算清楚再写代码）
+                         ↓
+Phase 4  代码实现        Remotion React 组件 + Apple 风格动画
+                         ↓
+Phase 5  渲染与迭代      单变量改动 → 渲染 → 看 → 反馈 → 修 → 再渲染
+```
+
+---
+
+## 快速上手
 
 ```bash
-# Analyze voiceover speech boundaries
+# 分析配音语音边界
 ffmpeg -i vo/02-pain.mp3 -af silencedetect=noise=-30dB:d=0.3 -f null - 2>&1 | grep silence
 
-# Test render (first 5 frames)
+# 测试渲染（前 5 帧）
 npx remotion render PromoVideo --frames=0-5
 
-# Full render
+# 完整渲染
 npx remotion render PromoVideo --gl=angle
 ```
 
-## Project Structure
+---
+
+## 项目结构
 
 ```
 promo-video/
   src/
-    Root.tsx              — Composition config (size, FPS, duration)
-    PromoVideo.tsx        — Main orchestration (VO + SFX + scenes)
-    styles.ts             — Design tokens
+    Root.tsx                — Composition 定义（尺寸、帧率、总时长）
+    PromoVideo.tsx          — 主编排（VO + SFX + 场景 Sequences）
+    styles.ts               — 设计 token（颜色、字体、spacing）
     components/
-      PhoneMockup.tsx     — iPhone mockup component
-      DashboardScreens.tsx — Product UI simulation
+      PhoneMockup.tsx       — iPhone 手机壳组件
+      DashboardScreens.tsx  — 产品界面模拟
   public/
-    vo/                   — Voiceover audio files
-    *.mp3                 — SFX (tap, pop, whoosh, chime)
-    bgm.mp3              — Background music
+    vo/                     — 配音音频
+    *.mp3                   — 音效（tap, pop, whoosh, chime）
+    bgm.mp3                 — 背景音乐
   out/
-    PromoVideo.mp4        — Rendered output
+    PromoVideo.mp4          — 渲染输出
 ```
 
-## Background
+---
 
-Distilled from 13 iterations (V1 → V13) of a real product promo video. Every rule in this skill exists because we hit the problem it prevents.
+## 背景
+
+从一个真实产品宣传视频的 13 轮迭代中提炼。Skill 里的每一条规则，都是因为踩过那个坑才写上去的。
 
 ## License
 
