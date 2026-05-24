@@ -27,9 +27,9 @@ Premiere 太重，剪映太浅，外包太贵。<br/>
 </p>
 
 <p align="center">
-核心方法论：<strong>音频驱动一切</strong>。<br/>
-每个动画的出现时间，都是用 ffmpeg 从配音语音边界数学推导的——<br/>
-不是估的。
+核心方法论：<strong>内容策划驱动一切</strong>。<br/>
+从场景大纲到每一帧的动画细节，全部可自定义调整——<br/>
+你对成品有完全的控制权。
 </p>
 
 <p align="center">
